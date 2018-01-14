@@ -4,7 +4,9 @@
   "description": "Simple search of Chicago restaurant food violations. Edit",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=prod gulp",
+    "start": "NODE_ENV=dev gulp"
   },
   "repository": {
     "type": "git",
@@ -17,16 +19,32 @@
   },
   "homepage": "https://github.com/ajilityj/chicago-restaurants#readme",
   "devDependencies": {
+    "autoprefixer": "^7.2.5",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "browserslist": "^2.11.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.1.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-eslint": "^4.0.1",
+    "gulp-postcss": "^7.0.1",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.3",
-    "run-sequence": "^2.2.1"
+    "gulp-stylelint": "^6.0.0",
+    "postcss-normalize": "^4.0.0",
+    "run-sequence": "^2.2.1",
+    "stylelint": "^8.4.0",
+    "stylelint-config-recommended": "^2.0.1",
+    "vue-loader": "^13.7.0",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.10.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie 9"
+  ],
+  "dependencies": {
+    "axios": "^0.17.1",
+    "vue": "^2.5.13"
   }
 }
