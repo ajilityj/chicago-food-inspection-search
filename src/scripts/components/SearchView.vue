@@ -1,7 +1,7 @@
 <template>
-  <div :class="{'hide': searchSubmitted }">
+  <div v-if="isActive" :class="['view-state', {'active': isActive }]">
     <input type="search" placeholder="Search" name="q">
-    <button @click="search">Search</button>
+    <button @click="searchSubmitted">Search</button>
   </div>
 </template>
 
@@ -11,17 +11,17 @@ import eventHub from '../shared/event-hub'
 export default {
   data () {
     return {
-      searchValue: '',
-      searchSubmitted: false
+      isActive: true,
+      searchValue: ''
     }
   },
   methods: {
-    search: function () {
-      this.searchSubmitted = true;
+    searchSubmitted: function () {
       this.searchValue = document.querySelector('input[name=q]').value;
-      this.searchEmitted();
+      this.searchNotification();
+      this.isActive = false;
     },
-    searchEmitted () {
+    searchNotification () {
       eventHub.$emit('search-submitted', this.searchValue);
     } 
   }

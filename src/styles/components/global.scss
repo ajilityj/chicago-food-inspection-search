@@ -1,5 +1,7 @@
 body {
-  font-family: 'Avenir Black', sans-serif;
+  color: #5c5b5c;
+  font-family: 'Avenir Next', sans-serif; // Avenir Next
+  font-size: 14px;
   margin: 0;
 }
 
@@ -9,10 +11,42 @@ header {
 }
 
 h1 {
+  font-family: 'Avenir Black', sans-serif; // Avenir Black
   font-size: 36px;
   margin: 0;
+  text-transform: uppercase;
 }
 
-.hide {
+button {
+  font-weight: bold;
+
+  &.inactive {
+    color: #c7c7c7;
+  }
+}
+
+.list-item {
+  color: #000;
+  font-family: Arial, sans-serif;  
+
+  .item-heading {
+    font-size: 24px;
+  }
+  
+  .item-subheading {
+    color: #cacaca;
+    font-size: 14px;
+  }
+
+  .item-description {
+    font-size: 12px;
+  }
+}
+
+.view-state {
   display: none;
+
+  &.active {
+    display: block;
+  }
 }
