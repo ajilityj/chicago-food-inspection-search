@@ -1,26 +1,26 @@
-# Chicago Food Inspection Search
+# CHICAGO FOOD INSPECTION SEARCH
 
-## Prerequisites
-### install dependencies
+## PREREQUISITES
+### Install Dependencies
 `npm install`
 
-## Development Environment
-### run dev build & watch for changes
+## DEVELOPMENT
+### Run Dev Build & Watch for Changes
 `npm start`
 
-### run local dev server (optional)
+### Run Local Dev Server (optional)
 1. `npm install server -g`
 2. `serve` (from root directory)
 3. http://localhost:5000
 
-## Production Environment
-### run production build
+## PRODUCTION
+### Run Production Build
 `npm run build`
 
-### package production assets
+### Package Production Assets
 1. index.html
 2. dist
 
-## Known Issues
+## KNOWN ISSUES
 1. Data limited to most recent 1000 results
 2. List view limited to first 5 results
