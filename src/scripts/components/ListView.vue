@@ -52,7 +52,9 @@ export default {
 	methods: {
 		filterRestaurants: function () {
 			return this.restaurants.filter((restaurant) => {
-				return restaurant.dba_name.toUpperCase().indexOf(this.searchTerm.toUpperCase()) > -1;
+				Object.keys(restaurant).some((key) => {
+					restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm.toLowerCase());
+				});			
 			});
 		},
 		restaurantSelected: function (restaurant) {

@@ -2,7 +2,7 @@
   background-color: #fff;
   border: 1px solid #d0d0d0;
   color: #000;
-  padding: 8px 10px;
+  padding: 18px 20px;
 
   &.view-state {
     display: flex;
@@ -17,6 +17,10 @@
     height: 240px;
     width: 240px;
   }  
+
+  .item-image-container {
+    margin-right: 18px;
+  }
 
   .left-column {
     display: flex;
