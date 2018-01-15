@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isActive" :class="['view-state', {'active': isActive }]">
-    <input type="search" placeholder="Search" name="q">
-    <button @click="searchSubmitted">Search</button>
+  <div v-if="isActive" :class="['view-state search-state', {'active': isActive }]">
+    <input class="search-input" type="search" placeholder="Search" name="q">
+    <button class="search-button" @click="searchSubmitted">Search</button>
   </div>
 </template>
 

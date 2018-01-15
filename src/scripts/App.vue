@@ -1,5 +1,5 @@
 <template>
-  <section id="app">
+  <section id="app" class="app-container">
     <SearchView></SearchView>
     <ListView :restaurants="restaurants"></ListView>
     <DetailView></DetailView>

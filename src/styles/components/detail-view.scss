@@ -1,0 +1,25 @@
+.detail-state {
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  color: #000;
+  padding: 8px 10px;
+
+  &.view-state {
+    display: flex;
+  }
+
+  .aka {
+    text-transform: capitalize;
+  }
+
+  .item-image-container,
+  .item-image {
+    height: 240px;
+    width: 240px;
+  }  
+
+  .left-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
