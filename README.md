@@ -9,7 +9,7 @@
 `npm start`
 
 ### Run Local Dev Server (optional)
-1. `npm install server -g`
+1. `npm install serve -g`
 2. `serve` (from root directory)
 3. http://localhost:5000
 
