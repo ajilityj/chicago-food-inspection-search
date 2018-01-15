@@ -18,6 +18,10 @@
     width: 240px;
   }  
 
+  .item-text-container {
+    width: calc(100% - 258px); // subtract image (240) + image margin (18)
+  }
+
   .item-image-container {
     margin-right: 18px;
   }

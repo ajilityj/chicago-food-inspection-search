@@ -95,7 +95,7 @@ input {
 }
 
 .item-text-container {
-  width: 100%;
+  width: calc(100% - 132px); // subtract image (120) + image margin (12)
 }
 
 .item-heading,
