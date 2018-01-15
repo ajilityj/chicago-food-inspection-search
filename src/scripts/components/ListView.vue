@@ -52,8 +52,8 @@ export default {
 	methods: {
 		filterRestaurants: function () {
 			return this.restaurants.filter((restaurant) => {
-				Object.keys(restaurant).some((key) => {
-					restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm.toLowerCase());
+				return Object.keys(restaurant).some((key) => {
+					return restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
 				});			
 			});
 		},
@@ -69,7 +69,7 @@ export default {
 	mounted () {
 		eventHub.$on('search-submitted', (term) => {
 			this.isActive = true;
-			this.searchTerm = term;
+			this.searchTerm = term.toLowerCase();
 			this.filteredRestaurants = this.filterRestaurants();
 		})
 	}	

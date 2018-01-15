@@ -1,7 +1,7 @@
 {
   "name": "chicago-restaurants",
   "version": "1.0.0",
-  "description": "Simple search of Chicago restaurant food violations. Edit",
+  "description": "Simple search of Chicago food inspection violations.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
