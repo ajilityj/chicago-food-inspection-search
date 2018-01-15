@@ -1,99 +1,88 @@
 'use strict';
 
+// general gulp packages
 import gulp from 'gulp';
+import util from 'gulp-util';
+import runSequence from 'run-sequence';
+import del from 'del';
+
+// style packages
 import sass from 'gulp-sass';
 import postcss from 'gulp-postcss';
 import stylelint from 'gulp-stylelint';
 import normalize from 'postcss-normalize';
 import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 import sourcemaps from 'gulp-sourcemaps';
-import del from 'del';
-import runSequence from 'run-sequence';
 
+// script packages
 import webpack from 'webpack';
-import webpackConfig from './webpack.config.js';
-const webpackRun = webpack(webpackConfig);
+import webpackDevConfig from './webpack.dev.js';
+import webpackProdConfig from './webpack.prod.js';
 
-// file paths
+// environment flag
+const config = {
+  production: !!util.env.production
+};
+
+// set appropriate webpack env config
+const webpackConfig = config.production ? webpack(webpackProdConfig) : webpack(webpackDevConfig);
+
+// asset(s) paths
 const paths = {
   styles: {
     src: 'src/styles/main.scss',
     dest: 'dist/styles/'
-  },
-  scripts: {
-    src: 'src/scripts/*',
-    dest: 'dist/scripts/'
   }
 };
 
 // default task: 'gulp'
-//gulp.task('default', ['build', 'watch']);
-gulp.task('default', ['build']);
+gulp.task('default', ['build', 'watch']);
 
-// build tasks
-gulp.task('build', () => {
+// build task: 'gulp build'
+gulp.task('build', ['styles', 'scripts']);
+
+// watch task: 'gulp watch'
+gulp.task('watch', function(){
+  gulp.watch('src/styles/**/*', ['styles']);
+  gulp.watch('src/scripts/**/*', ['scripts']);
+});
+
+// styles task: 'gulp styles'
+gulp.task('styles', () => {
   runSequence(
-    'clean',
-    ['styles', 'webpack']
+    ['clean-styles'],
+    ['process-styles']
   );
 });
 
-// remove dist folder
-// TO-DO: remove styles folder on watch & remove scripts folder on watch
-gulp.task('clean', () => {
-  return del(['dist']);
+// scripts task: 'gulp scripts'
+gulp.task('scripts', function(done) {
+  webpackConfig.run(function(err) {
+    if (err) {
+      console.error('Webpack Error: ', err);
+    }
+    done();
+  });
 });
 
-// style tasks
-// * stylelint settings @ .stylelintrc.json
-// * ref: https://stylelint.io/user-guide/rules/
-gulp.task('styles', () => {
-  
-  // postcss plugins
-  const plugins = [
-    normalize(),
-    autoprefixer()
-  ];
+// remove dist/styles folder
+gulp.task('clean-styles', () => {
+  return del(['dist/styles']);
+});
 
+// process style tasks
+// * stylelint settings @ .stylelintrc.json (ref: https://stylelint.io/user-guide/rules/)
+gulp.task('process-styles', () => {
   return gulp.src(paths.styles.src)
     .pipe(stylelint({
       failAfterError: true,
       reporters: [{formatter: 'string', console: true}]
     }))
     .pipe(sourcemaps.init())
-    .pipe(sass()
-      .on('error', sass.logError))
-    .pipe(postcss(plugins))
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([normalize(), autoprefixer()]))
+    .pipe(config.production ? postcss([cssnano()]) : util.noop())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.styles.dest));
-});
-
-// script tasks
-// * eslint settings @ .eslintrc.json
-// * babel settings @ .babelrc
-// gulp.task('scripts', () => {
-//   return gulp.src(paths.scripts.src)
-//     .pipe(eslint())
-//     .pipe(eslint.format())
-//     .pipe(eslint.failAfterError())
-//     .pipe(sourcemaps.init())
-//     .pipe(babel())
-//     .pipe(sourcemaps.write('.'))
-//     .pipe(gulp.dest(paths.scripts.dest));
-// });
-
-gulp.task('webpack', function(done) {
-  webpackRun.run(function(err, stats) {
-    if(err) {
-      console.log('Error', err);
-    }
-    done();
-  });
-});
-
-// watch for scss, js & vue changes
-gulp.task('watch', ['styles', 'webpack'], function(){
-  gulp.watch(paths.styles.src, ['styles']);
-  gulp.watch(paths.scripts.src, ['webpack']);
-  //gulp.watch('js/**/*.vue', ['webpack']);
 });

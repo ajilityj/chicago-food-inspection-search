@@ -30,8 +30,8 @@
 		</ul>
 
 		<div class="pagination-container">
-			<button @click="showPrev()" disabled>&lt; Previous</button>
-			<button @click="showNext()">Next &gt;</button>
+			<button disabled>&lt; Previous</button>
+			<button>Next &gt;</button>
 		</div>
   </div>
 </template>
