@@ -7,8 +7,6 @@
 ## Development Environment
 ### run dev build & watch for changes
 `npm start`
--or- 
-`gulp`
 
 ### run local dev server (optional)
 1. `npm install server -g`
@@ -18,8 +16,6 @@
 ## Production Environment
 ### run production build
 `npm run build`
--or- 
-`gulp build --production`
 
 ### package production assets
 1. index.html
