@@ -1,0 +1,33 @@
+.detail-state {
+  background-color: #fff;
+  border: 1px solid #d0d0d0;
+  color: #000;
+  padding: 18px 20px;
+
+  &.view-state {
+    display: flex;
+  }
+
+  .aka {
+    text-transform: capitalize;
+  }
+
+  .item-image-container,
+  .item-image {
+    height: 240px;
+    width: 240px;
+  }  
+
+  .item-text-container {
+    width: calc(100% - 258px); // subtract image (240) + image margin (18)
+  }
+
+  .item-image-container {
+    margin-right: 18px;
+  }
+
+  .left-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
