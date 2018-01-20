@@ -24,6 +24,10 @@ export default {
     }
   },
   methods: {
+    focusOnSearchInput: function () {
+      const searchInput = document.querySelector('input[type=search]');
+      searchInput.focus();
+    },
     fetchAll: function () {
       return axios.get('https://data.cityofchicago.org/resource/cwig-ma7x.json')
         .then(response => {
@@ -35,6 +39,7 @@ export default {
   },
   mounted: function () {
     this.fetchAll();
+    this.focusOnSearchInput();
   }
 }
 </script>
