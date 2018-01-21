@@ -1,11 +1,9 @@
 <template>
   <form v-if="isActive" @submit.prevent="searchSubmitted" :class="['view-state search-state', {'active': isActive }]">
-    <input v-model="searchValue" class="search-input" type="search" placeholder="Search" name="q">
+    <input v-model="searchValue" class="search-input" type="search" placeholder="Search" name="q" @blur="searchBlur">
     <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
   </form>  
 </template>
-
-<!-- TODO: re-apply last submitted term when leaving input field, in list view -->
 
 <script>
 import eventHub from '../shared/event-hub'
@@ -20,6 +18,12 @@ export default {
     }
   },
   methods: {
+    searchBlur: function () {
+      // if in list view, re-submit search
+      if (this.isListView) {
+        this.searchSubmitted();
+      }
+    },
     searchSubmitted: function () {
       // save submitted value
       this.searchValue = document.querySelector('input[name=q]').value.trim().toLowerCase();
