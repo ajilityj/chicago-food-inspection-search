@@ -3,7 +3,6 @@
 // general gulp packages
 import gulp from 'gulp';
 import util from 'gulp-util';
-import runSequence from 'run-sequence';
 import del from 'del';
 
 // style packages
@@ -30,6 +29,10 @@ const webpackConfig = config.production ? webpack(webpackProdConfig) : webpack(w
 
 // asset(s) paths
 const paths = {
+  images: {
+    src: 'src/images/*',
+    dest: 'dist/images/'
+  },
   styles: {
     src: 'src/styles/main.scss',
     dest: 'dist/styles/'
@@ -40,20 +43,13 @@ const paths = {
 gulp.task('default', ['build', 'watch']);
 
 // build task: 'gulp build'
-gulp.task('build', ['styles', 'scripts']);
+gulp.task('build', ['scripts', 'styles', 'images']);
 
 // watch task: 'gulp watch'
 gulp.task('watch', function(){
-  gulp.watch('src/styles/**/*', ['styles']);
   gulp.watch('src/scripts/**/*', ['scripts']);
-});
-
-// styles task: 'gulp styles'
-gulp.task('styles', () => {
-  runSequence(
-    ['clean-styles'],
-    ['process-styles']
-  );
+  gulp.watch('src/styles/**/*', ['styles']);
+  gulp.watch('src/images/**/*', ['images']);
 });
 
 // scripts task: 'gulp scripts'
@@ -66,14 +62,9 @@ gulp.task('scripts', function(done) {
   });
 });
 
-// remove dist/styles folder
-gulp.task('clean-styles', () => {
-  return del(['dist/styles']);
-});
-
-// process style tasks
+// styles task: 'gulp styles'
 // * stylelint settings @ .stylelintrc.json (ref: https://stylelint.io/user-guide/rules/)
-gulp.task('process-styles', () => {
+gulp.task('styles', ['clean-styles'], () => {
   return gulp.src(paths.styles.src)
     .pipe(stylelint({
       failAfterError: true,
@@ -85,4 +76,20 @@ gulp.task('process-styles', () => {
     .pipe(config.production ? postcss([cssnano()]) : util.noop())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.styles.dest));
+});
+
+// remove dist/styles folder
+gulp.task('clean-styles', () => {
+  return del(['dist/styles']);
+});
+
+// styles task: 'gulp images'
+gulp.task('images', ['clean-images'], () => {
+  return gulp.src(paths.images.src)
+    .pipe(gulp.dest(paths.images.dest));
+});
+
+// remove dist/images folder
+gulp.task('clean-images', () => {
+  return del(['dist/images']);
 });

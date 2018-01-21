@@ -1,8 +1,8 @@
 <template>
-  <div v-if="isActive" :class="['view-state list-state', {'active': isActive }]">
+  <div v-if="isActive" :class="['view-state list-state', { 'active': isActive }]">
     <SearchBox :searchTerm="searchTerm"></SearchBox> 
 		<ul class="search-results">
-				<li class="list-item" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
+				<li class="list-item" tabindex="0" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
 
 					<div class="item-image-container">
 						<img class="item-image" v-if="restaurant.image" src="restaurant.image">						

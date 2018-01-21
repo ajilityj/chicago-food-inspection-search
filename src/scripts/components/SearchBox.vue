@@ -1,6 +1,6 @@
 <template>
   <form v-if="isActive" @submit.prevent="searchSubmitted" :class="['view-state search-state', {'active': isActive }]">
-    <input v-model="searchValue" class="search-input" type="search" placeholder="Search" name="q" @blur="searchBlur">
+    <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q" @blur="searchBlur">
     <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
   </form>  
 </template>

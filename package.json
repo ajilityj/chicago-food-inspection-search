@@ -36,7 +36,6 @@
     "gulp-stylelint": "^6.0.0",
     "gulp-util": "^3.0.8",
     "postcss-normalize": "^4.0.0",
-    "run-sequence": "^2.2.1",
     "stylelint": "^8.4.0",
     "stylelint-config-recommended": "^2.0.1",
     "uglifyjs-webpack-plugin": "^1.1.6",

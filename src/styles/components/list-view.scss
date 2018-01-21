@@ -4,14 +4,6 @@
     padding: 0;
   }
   
-  .search-input {
-    width: 100%;
-  }
-
-  .search-button {
-    display: none;
-  }
-
   .list-item {
     background-color: #fff;
     border: 1px solid #d0d0d0;
@@ -23,6 +15,10 @@
     max-height: 138px;
     overflow: hidden;
     padding: 8px 10px;
+
+    &:focus {
+      @include outline;
+    }
   }
 
   .item-description {

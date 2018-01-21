@@ -26,7 +26,7 @@ export default {
   methods: {
     focusOnSearchInput: function () {
       // set focus to search box
-      document.querySelector('input[type=search]').focus();
+      document.querySelector('input[name=q]').focus();
     },
     fetchAll: function () {
       return axios.get('https://data.cityofchicago.org/resource/cwig-ma7x.json')
