@@ -1,10 +1,7 @@
 <template>
   <div v-if="isActive" :class="['view-state list-state', { 'active': isActive }]">
-    <SearchBox :searchTerm="searchTerm"></SearchBox> 
-		<ul class="search-results">
-				<li class="list-item no-results" v-if="filteredRestaurants.length === 0">
-					Sorry, no results were found for "{{ searchTerm }}".
-				</li>
+    <SearchBox :searchTerm="searchTerm" :resultsLength="filteredRestaurants.length"></SearchBox>
+		<ul class="search-results">		
 				<li class="list-item" tabindex="0" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
 
 					<div class="item-image-container">

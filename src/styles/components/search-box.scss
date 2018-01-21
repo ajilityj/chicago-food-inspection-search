@@ -1,5 +1,5 @@
 .search-state {
-  &.view-state {
+  form {
     display: grid;
     grid-template-columns: 4fr 1fr;
   }
@@ -9,3 +9,12 @@
     min-width: calc(100% - 34px); // full-width minus margin
   }
 }
+
+
+
+.results-message {
+  margin: 28px 0 0;
+}
+.results-message + li {
+  margin-top: 8px;
+}  

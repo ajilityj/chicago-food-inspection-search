@@ -1,18 +1,22 @@
 <template>
-  <form v-if="isActive" @submit.prevent="searchSubmitted" :class="['view-state search-state', {'active': isActive }]">
-    <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q">
-    <button class="search-button" type="submit" :disabled="isEmpty">
-      <!-- add search icon -->
-      Search
-    </button>
-  </form>  
+  <div v-if="isActive" :class="['view-state search-state', {'active': isActive }]">
+    <form @submit.prevent="searchSubmitted">
+      <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q" @blur="searchBlur">
+      <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
+    </form> 
+		<p class="results-message">
+			<span v-if="!isListView">Search for food inspection violations by City of Chicago businesses.</span>
+			<span v-if="resultsLength">{{ resultsLength }} results for "{{ searchTerm }}"</span>
+			<span v-if="isListView && !resultsLength">Sorry, no results were found for "{{ searchTerm }}".</span>		
+		</p>
+  </div>   
 </template>
 
 <script>
 import eventHub from '../shared/event-hub'
 
 export default {
-  props: ['searchTerm'],
+  props: ['searchTerm', 'resultsLength'],
   data () {
     return {
       isActive: true,
@@ -21,8 +25,14 @@ export default {
     }
   },
   methods: {
+    searchBlur: function () {
+      // if in list view and search value is blank, re-submit search
+      if (this.isListView && this.searchValue === '') {
+        this.searchSubmitted();
+      }
+    },
     searchSubmitted: function () {
-      // save submitted value
+      // save submitted term
       this.searchValue = document.querySelector('input[name=q]').value.trim().toLowerCase();
 
       // check if a search value exists
