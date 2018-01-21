@@ -2,6 +2,9 @@
   <div v-if="isActive" :class="['view-state list-state', { 'active': isActive }]">
     <SearchBox :searchTerm="searchTerm"></SearchBox> 
 		<ul class="search-results">
+				<li class="list-item no-results" v-if="filteredRestaurants.length === 0">
+					Sorry, no results were found for "{{ searchTerm }}".
+				</li>
 				<li class="list-item" tabindex="0" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
 
 					<div class="item-image-container">
@@ -27,7 +30,7 @@
 
 				</li>
 		</ul>
-		<div class="pagination-container">
+		<div class="pagination-container" v-if="filteredRestaurants.length > 5">
 			<button disabled>&lt; Previous</button>
 			<button>Next &gt;</button>
 		</div>
@@ -61,8 +64,11 @@ export default {
 			});
 		},
 		restaurantSelected: function (restaurant) {
+			// save selected restaurant
 			this.selectedRestaurant = restaurant;
-      this.selectionNotification();
+			// trigger selection notification
+			this.selectionNotification();
+			// deactivate list component
       this.isActive = false;
     },
     selectionNotification: function () {

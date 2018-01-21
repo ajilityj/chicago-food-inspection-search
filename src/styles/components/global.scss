@@ -46,7 +46,10 @@ button {
   &:hover,
   &:focus {
     opacity: 1;
-    outline: none;
+  }
+
+  &:focus {
+    @include outline;
   }
 
   &:disabled {
@@ -122,7 +125,7 @@ input {
 }
 
 .item-text-container {
-  width: calc(100% - 132px); // subtract image (120) + image margin (12)
+  width: calc(100% - 132px); // subtract (image width (120) + image margin (12))
 }
 
 .item-heading,

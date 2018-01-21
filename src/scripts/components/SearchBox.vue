@@ -1,7 +1,10 @@
 <template>
   <form v-if="isActive" @submit.prevent="searchSubmitted" :class="['view-state search-state', {'active': isActive }]">
-    <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q" @blur="searchBlur">
-    <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
+    <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q">
+    <button class="search-button" type="submit" :disabled="isEmpty">
+      <!-- add search icon -->
+      Search
+    </button>
   </form>  
 </template>
 
@@ -18,12 +21,6 @@ export default {
     }
   },
   methods: {
-    searchBlur: function () {
-      // if in list view, re-submit search
-      if (this.isListView) {
-        this.searchSubmitted();
-      }
-    },
     searchSubmitted: function () {
       // save submitted value
       this.searchValue = document.querySelector('input[name=q]').value.trim().toLowerCase();
@@ -32,8 +29,8 @@ export default {
       if (this.searchValue) {
         // trigger search notification
         this.searchNotification();
-        // if not in list-state, deactivate component
-        if (!this.searchTerm) {
+        // if not in list-state, deactivate search component
+        if (!this.isListView) {
           this.isActive = false;
         }
       } else {

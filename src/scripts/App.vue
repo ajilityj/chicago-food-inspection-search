@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    focusOnSearchInput: function () {
+    focusOnSearchBox: function () {
       // set focus to search box
       document.querySelector('input[name=q]').focus();
     },
@@ -39,7 +39,7 @@ export default {
   },
   mounted: function () {
     this.fetchAll();
-    this.focusOnSearchInput();
+    this.focusOnSearchBox();
   }
 }
 </script>
