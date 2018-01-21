@@ -1,6 +1,6 @@
 <template>
   <section id="app" class="app-container">
-    <SearchView></SearchView>
+    <SearchBox></SearchBox>
     <ListView :restaurants="restaurants"></ListView>
     <DetailView></DetailView>
   </section>
@@ -8,13 +8,13 @@
 
 <script>
 import axios from 'axios';
-import SearchView from './components/SearchView.vue';
+import SearchBox from './components/SearchBox.vue';
 import ListView from './components/ListView.vue';
 import DetailView from './components/DetailView.vue';
 
 export default {
   components: {
-    SearchView,
+    SearchBox,
     ListView,
     DetailView
   },
@@ -25,8 +25,8 @@ export default {
   },
   methods: {
     focusOnSearchInput: function () {
-      const searchInput = document.querySelector('input[type=search]');
-      searchInput.focus();
+      // set focus to search box
+      document.querySelector('input[type=search]').focus();
     },
     fetchAll: function () {
       return axios.get('https://data.cityofchicago.org/resource/cwig-ma7x.json')

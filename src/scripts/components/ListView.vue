@@ -1,7 +1,6 @@
 <template>
   <div v-if="isActive" :class="['view-state list-state', {'active': isActive }]">
-		<input class="search-term-input" type="text" :placeholder="searchTerm" disabled>
-
+    <SearchBox :searchTerm="searchTerm"></SearchBox> 
 		<ul class="search-results">
 				<li class="list-item" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
 
@@ -28,7 +27,6 @@
 
 				</li>
 		</ul>
-
 		<div class="pagination-container">
 			<button disabled>&lt; Previous</button>
 			<button>Next &gt;</button>
@@ -38,9 +36,13 @@
 
 <script>
 import eventHub from '../shared/event-hub'
+import SearchBox from './SearchBox.vue';
 
 export default {
 	props: ['restaurants'],
+	components: {
+    SearchBox
+  },
   data () {
     return {
 			isActive: false,
@@ -51,6 +53,7 @@ export default {
 	},
 	methods: {
 		filterRestaurants: function () {
+			// filter restaurants based on search term
 			return this.restaurants.filter((restaurant) => {
 				return Object.keys(restaurant).some((key) => {
 					return restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
@@ -63,13 +66,14 @@ export default {
       this.isActive = false;
     },
     selectionNotification: function () {
+			// send notification that a restaurant was selected
       eventHub.$emit('restaurant-selected', this.selectedRestaurant);
 		}
 	},
 	mounted () {
 		eventHub.$on('search-submitted', (term) => {
 			this.isActive = true;
-			this.searchTerm = term.toLowerCase();
+			this.searchTerm = term;
 			this.filteredRestaurants = this.filterRestaurants();
 		})
 	}	
