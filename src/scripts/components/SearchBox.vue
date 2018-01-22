@@ -11,7 +11,6 @@
         <li>License #</li>
         <li>Facility Type</li>
         <li>Address</li>
-        <li>Zip Code</li>
         <li>Inspection Date</li>
         <li>Inspection Id</li>
         <li>Inspection Type</li>
