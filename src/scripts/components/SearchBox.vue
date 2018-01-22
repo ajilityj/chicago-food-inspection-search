@@ -5,7 +5,7 @@
       <button class="search-button" type="submit" :disabled="isEmpty"><span>Search</span></button>
     </form> 
 		<div class="results-message" v-if="!isListView">
-      <p>Search results of food inspections completed by the City of Chicago in the last 30 days, based on the following fields:</p>
+      <p>Search results of food inspections, based on the following fields, completed by the City of Chicago in the last 30 days:</p>
       <ul>
         <li>Restaurant Name</li>
         <li>License #</li>
