@@ -16,6 +16,10 @@
     overflow: hidden;
     padding: 8px 10px;
 
+    &:first-child {
+      margin-top: 8px;
+    }
+    
     &:focus {
       @include outline;
     }

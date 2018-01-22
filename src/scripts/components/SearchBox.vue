@@ -5,8 +5,8 @@
       <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
     </form> 
 		<p class="results-message">
-			<span v-if="!isListView">Search for food inspection violations by City of Chicago businesses.</span>
-			<span v-if="resultsLength">{{ resultsLength }} results for "{{ searchTerm }}"</span>
+			<span v-if="!isListView">Search results of the 1,000 most recent food inspections by the City of Chicago.</span>
+			<span v-if="resultsLength">Showing 1-5 of {{ resultsLength }} results for "{{ searchTerm }}"</span>
 			<span v-if="isListView && !resultsLength">Sorry, no results were found for "{{ searchTerm }}".</span>		
 		</p>
   </div>   
@@ -33,7 +33,7 @@ export default {
     },
     searchSubmitted: function () {
       // save submitted term
-      this.searchValue = document.querySelector('input[name=q]').value.trim().toLowerCase();
+      this.searchValue = document.querySelector('input[name=q]').value.trim();
 
       // check if a search value exists
       if (this.searchValue) {

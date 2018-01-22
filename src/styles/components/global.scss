@@ -29,6 +29,22 @@ h1 {
   width: $app-width;
 }
 
+a {
+  color: $text-color;
+  opacity: 0.75;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 1;
+  }
+  
+  &:focus {
+    @include outline;
+  }
+}
+
 button {
   background: $color-light;
   background: linear-gradient(to bottom, $color-light 0%, $color-base 100%);
@@ -44,7 +60,8 @@ button {
   width: 194px;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     opacity: 1;
   }
 

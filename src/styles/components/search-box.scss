@@ -1,7 +1,13 @@
 .search-state {
   form {
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: 4fr 1fr;
+    -ms-grid-columns: 1fr 192px;
+    grid-template-columns: 1fr 192px;
+  }
+
+  .search-button {
+    -ms-grid-column-align: end; // align button to left in IE10/11
   }
 
   .search-input {
@@ -10,11 +16,6 @@
   }
 }
 
-
-
 .results-message {
   margin: 28px 0 0;
 }
-.results-message + li {
-  margin-top: 8px;
-}  

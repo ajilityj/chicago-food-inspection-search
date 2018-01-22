@@ -1,8 +1,14 @@
 <template>
   <div v-if="isActive" :class="['view-state list-state', { 'active': isActive }]">
-    <SearchBox :searchTerm="searchTerm" :resultsLength="filteredRestaurants.length"></SearchBox>
+    <SearchBox :searchTerm="unformattedSearchTerm" :resultsLength="filteredRestaurants.length"></SearchBox>
 		<ul class="search-results">		
-				<li class="list-item" tabindex="0" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
+				<li class="list-item" tabindex="0" 
+					v-for="(restaurant, index) in filteredRestaurants" 
+					v-if="index < 5" 
+					:key="restaurant.inspection_id" 
+					@click="restaurantSelected(restaurant, index)" 
+					@keyup.enter="restaurantSelected(restaurant, index)"
+				>
 
 					<div class="item-image-container">
 						<img class="item-image" v-if="restaurant.image" src="restaurant.image">						
@@ -46,9 +52,11 @@ export default {
   data () {
     return {
 			isActive: false,
-			searchTerm: '',
 			filteredRestaurants: [],
-			selectedRestaurant: {}
+			searchTerm: '',
+			selectedRestaurant: {},
+			selectedRestaurantIndex: 0,
+			unformattedSearchTerm: ''
     }
 	},
 	methods: {
@@ -60,24 +68,33 @@ export default {
 				});			
 			});
 		},
-		restaurantSelected: function (restaurant) {
-			// save selected restaurant
+		restaurantSelected: function (restaurant, index) {
+			// save selected restaurant & index
 			this.selectedRestaurant = restaurant;
+			this.selectedRestaurantIndex = index;
+
 			// trigger selection notification
 			this.selectionNotification();
+
 			// deactivate list component
       this.isActive = false;
     },
     selectionNotification: function () {
 			// send notification that a restaurant was selected
-      eventHub.$emit('restaurant-selected', this.selectedRestaurant);
+      eventHub.$emit('restaurant-selected', {
+				selectedRestaurant: this.selectedRestaurant, 
+				selectedRestaurantIndex: this.selectedRestaurantIndex, 
+				numSearchResults: this.filteredRestaurants.length,
+				unformattedSearchTerm: this.unformattedSearchTerm
+			});
 		}
 	},
 	mounted () {
 		eventHub.$on('search-submitted', (term) => {
 			this.isActive = true;
-			this.searchTerm = term;
+			this.searchTerm = term.toLowerCase();
 			this.filteredRestaurants = this.filterRestaurants();
+			this.unformattedSearchTerm = term;
 		})
 	}	
 }
