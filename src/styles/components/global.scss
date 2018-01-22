@@ -11,6 +11,7 @@ body {
   color: $text-color;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -120,6 +121,10 @@ input {
   @include disabled;
 }
 
+.footnote {
+  font-size: 0.857em;
+}
+
 .app-container {
   background-color: $color-lighter;
   border: 1px solid $color-light;
@@ -162,7 +167,6 @@ input {
 
 .item-description {
   font-size: 0.857em;
-  line-height: 1.25;
 }
 
 .item-details {

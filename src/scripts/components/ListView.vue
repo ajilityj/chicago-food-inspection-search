@@ -26,8 +26,8 @@
 						</p>
 					
 						<p class="item-description" v-if="restaurant.violations">
-							<strong>Violations:</strong> {{ restaurant.violations.substring(0, 400) }} 
-							<span v-if="restaurant.violations.length > 400">...</span>
+							<strong>Violations:</strong> {{ restaurant.violations.substring(0, 275) }} 
+							<span v-if="restaurant.violations.length > 275">...</span>
 						</p>
 					</div>
 
@@ -64,7 +64,7 @@ export default {
 			// filter restaurants based on search term
 			return this.restaurants.filter((restaurant) => {
 				return Object.keys(restaurant).some((key) => {
-					return restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
+					return restaurant[key] !== (null||undefined) && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
 				});			
 			});
 		},
