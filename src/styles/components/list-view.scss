@@ -4,6 +4,38 @@
     padding: 0;
   }
   
+  .search-state {
+    form {
+      -ms-grid-columns: 1fr 48px;
+      grid-template-columns: 1fr 48px;
+    }
+  
+    .search-button {
+      position: relative;
+      width: 48px;
+    }
+    
+    .search-button span {
+      color: transparent;
+    }
+    
+    .search-button span:before {
+      background: url(../images/search-icon.svg) no-repeat;
+      background-size: 24px 24px;
+      height: 24px;
+      width: 24px;
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 12px;
+    }
+
+    .search-input {
+      margin-right: 12px;
+      min-width: calc(100% - 12px); // full-width minus margin
+    }
+  }
+
   .list-item {
     background-color: #fff;
     border: 1px solid #d0d0d0;

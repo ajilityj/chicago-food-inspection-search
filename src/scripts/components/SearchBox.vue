@@ -2,7 +2,7 @@
   <div v-if="isActive" :class="['view-state search-state', {'active': isActive }]">
     <form @submit.prevent="searchSubmitted">
       <input v-model="searchValue" class="search-input" type="text" placeholder="Search" name="q" @blur="searchBlur">
-      <button class="search-button" type="submit" :disabled="isEmpty">Search</button>
+      <button class="search-button" type="submit" :disabled="isEmpty"><span>Search</span></button>
     </form> 
 		<p class="results-message">
 			<span v-if="!isListView">Search results of the 1,000 most recent food inspections by the City of Chicago.</span>
