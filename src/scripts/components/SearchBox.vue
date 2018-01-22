@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="results-message" v-if="resultsLength">
-      <p>Showing 1-5 of {{ resultsLength }} results for "{{ searchTerm }}"</p>
+      <p>Showing 1-<span v-if="resultsLength > 5">5</span><span v-else>{{ resultsLength }}</span> of {{ resultsLength }} results for "{{ searchTerm }}"</p>
     </div>
     <div class="results-message" v-if="isListView && !resultsLength">
       <p>Sorry, no results were found for "{{ searchTerm }}".</p>
