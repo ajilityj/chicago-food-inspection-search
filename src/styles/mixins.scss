@@ -1,0 +1,11 @@
+@mixin disabled {
+  background: #fff;
+  border-color: $color-light;
+  color: $color-light;
+  pointer-events: none;
+}
+
+@mixin outline {
+  border: 1px solid $color-accent;
+  outline: none;
+}

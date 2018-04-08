@@ -1,9 +1,14 @@
 <template>
-  <div v-if="isActive" :class="['view-state list-state', {'active': isActive }]">
-		<input class="search-term-input" type="text" :placeholder="searchTerm" disabled>
-
-		<ul class="search-results">
-				<li class="list-item" v-for="(restaurant, index) in filteredRestaurants" v-if="index < 5" :key="restaurant.inspection_id" @click="restaurantSelected(restaurant)">
+  <div v-if="isActive" :class="['view-state list-state', { 'active': isActive }]">
+    <SearchBox :searchTerm="unformattedSearchTerm" :resultsLength="filteredRestaurants.length"></SearchBox>
+		<ul class="search-results">		
+				<li class="list-item" tabindex="0" 
+					v-for="(restaurant, index) in filteredRestaurants" 
+					v-if="index < 5" 
+					:key="restaurant.inspection_id" 
+					@click="restaurantSelected(restaurant, index)" 
+					@keyup.enter="restaurantSelected(restaurant, index)"
+				>
 
 					<div class="item-image-container">
 						<img class="item-image" v-if="restaurant.image" src="restaurant.image">						
@@ -21,15 +26,14 @@
 						</p>
 					
 						<p class="item-description" v-if="restaurant.violations">
-							<strong>Violations:</strong> {{ restaurant.violations.substring(0, 400) }} 
-							<span v-if="restaurant.violations.length > 400">...</span>
+							<strong>Violations:</strong> {{ restaurant.violations.substring(0, 275) }} 
+							<span v-if="restaurant.violations.length > 275">...</span>
 						</p>
 					</div>
 
 				</li>
 		</ul>
-
-		<div class="pagination-container">
+		<div class="pagination-container" v-if="filteredRestaurants.length > 5">
 			<button disabled>&lt; Previous</button>
 			<button>Next &gt;</button>
 		</div>
@@ -38,32 +42,51 @@
 
 <script>
 import eventHub from '../shared/event-hub'
+import SearchBox from './SearchBox.vue';
 
 export default {
 	props: ['restaurants'],
+	components: {
+    SearchBox
+  },
   data () {
     return {
 			isActive: false,
-			searchTerm: '',
 			filteredRestaurants: [],
-			selectedRestaurant: {}
+			searchTerm: '',
+			selectedRestaurant: {},
+			selectedRestaurantIndex: 0,
+			unformattedSearchTerm: ''
     }
 	},
 	methods: {
 		filterRestaurants: function () {
+			// filter restaurants based on search term
 			return this.restaurants.filter((restaurant) => {
 				return Object.keys(restaurant).some((key) => {
-					return restaurant[key] !== null && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
+					return restaurant[key] !== (null||undefined) && restaurant[key].toString().toLowerCase().includes(this.searchTerm);
 				});			
 			});
 		},
-		restaurantSelected: function (restaurant) {
+		restaurantSelected: function (restaurant, index) {
+			// save selected restaurant & index
 			this.selectedRestaurant = restaurant;
-      this.selectionNotification();
+			this.selectedRestaurantIndex = index;
+
+			// trigger selection notification
+			this.selectionNotification();
+
+			// deactivate list component
       this.isActive = false;
     },
     selectionNotification: function () {
-      eventHub.$emit('restaurant-selected', this.selectedRestaurant);
+			// send notification that a restaurant was selected
+      eventHub.$emit('restaurant-selected', {
+				selectedRestaurant: this.selectedRestaurant, 
+				selectedRestaurantIndex: this.selectedRestaurantIndex, 
+				numSearchResults: this.filteredRestaurants.length,
+				unformattedSearchTerm: this.unformattedSearchTerm
+			});
 		}
 	},
 	mounted () {
@@ -71,6 +94,7 @@ export default {
 			this.isActive = true;
 			this.searchTerm = term.toLowerCase();
 			this.filteredRestaurants = this.filterRestaurants();
+			this.unformattedSearchTerm = term;
 		})
 	}	
 }

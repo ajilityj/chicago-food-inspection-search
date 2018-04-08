@@ -5,7 +5,8 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,900');
 
 @import 'variables.scss';
+@import 'mixins.scss';
 @import 'components/global.scss';
-@import 'components/search-view.scss';
+@import 'components/search-box.scss';
 @import 'components/list-view.scss';
 @import 'components/detail-view.scss';
