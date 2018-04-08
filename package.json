@@ -1,5 +1,5 @@
 {
-  "name": "chicago-restaurants",
+  "name": "chicago-food-inspection-search",
   "version": "1.0.0",
   "description": "Simple search of Chicago food inspection violations.",
   "main": "main.js",
@@ -9,18 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ajilityj/chicago-restaurants.git"
+    "url": "https://github.com/ajilityj/chicago-food-inspection-search.git"
   },
   "author": "AJ Johnson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ajilityj/chicago-restaurants/issues"
+    "url": "https://github.com/ajilityj/chicago-food-inspection-search/issues"
   },
-  "homepage": "https://github.com/ajilityj/chicago-restaurants#readme",
+  "homepage": "https://github.com/ajilityj/chicago-food-inspection-search#readme",
   "devDependencies": {
     "autoprefixer": "^7.2.5",
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.0",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "browserslist": "^2.11.1",
